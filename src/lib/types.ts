@@ -1,13 +1,12 @@
 export type Task = {
   id: number;
   title: string;
+  color: TaskColor;
   completed: false;
   createdAt: Date;
   updatedAt: Date;
 };
 
-export type TaskListData = {
-  totalCount: number;
-  completedCount: number;
-  tasks: Task[];
-};
+export const taskColors = ["crimson", "seagreen", "slateblue"] as const;
+
+export type TaskColor = (typeof taskColors)[number];
