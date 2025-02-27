@@ -10,6 +10,8 @@ import { ClipboardList } from "lucide-react";
 export function TaskList() {
   const tasks = useQuery<Task[]>("/tasks");
 
+  // Normally I would build out true pagination
+  // and retrive these counts from the database
   const totalCount = useMemo(() => tasks.data?.length || 0, [tasks.data]);
 
   const completedCount = useMemo(() => {

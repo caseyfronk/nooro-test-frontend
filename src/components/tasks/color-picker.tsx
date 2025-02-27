@@ -8,9 +8,9 @@ type ColorPickerProps = {
 
 export function ColorPicker({ value, onChange }: ColorPickerProps) {
   return (
-    <div className="flex gap-3">
+    <div className="flex gap-3" role="radiogroup" aria-label="Pick a color">
       {taskColors.map((color) => (
-        <div
+        <button
           key={color}
           className={cn(
             "size-13 rounded-full border-2 border-transparent hover:cursor-pointer",
@@ -18,7 +18,11 @@ export function ColorPicker({ value, onChange }: ColorPickerProps) {
           )}
           style={{ backgroundColor: color }}
           onClick={() => onChange(color)}
-        ></div>
+          aria-label={`Select ${color}`}
+          role="radio"
+          type="button"
+          aria-checked={value === color}
+        />
       ))}
     </div>
   );

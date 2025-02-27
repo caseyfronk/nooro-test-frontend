@@ -1,4 +1,4 @@
-import { EditTask } from "@/components/tasks/edit-task";
+import { EditTaskForm } from "@/components/tasks/edit-task-form";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -17,7 +17,8 @@ export default async function EditTaskPage({ params }: Params) {
           <ArrowLeft />
         </Link>
       </Button>
-      <EditTask taskId={taskId} />
+      {/* We need to get the taskId from the server params above */}
+      <EditTaskForm taskId={taskId} />
     </main>
   );
 }

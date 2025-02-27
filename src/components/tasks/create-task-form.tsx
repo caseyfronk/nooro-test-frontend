@@ -4,9 +4,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutate } from "../hooks/use-mutate";
-import { useQuery } from "../hooks/use-query";
-import { Task } from "@/lib/types";
-import { useEffect } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -17,22 +15,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Check } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 import { ColorPicker } from "./color-picker";
 import { useRouter } from "next/navigation";
 import { taskSchema } from "@/lib/validation";
 
-type EditTaskProps = {
-  taskId: string;
-};
-
-export function EditTask({ taskId }: EditTaskProps) {
+export function CreateTaskForm() {
   const router = useRouter();
 
-  const { data: defaultValues } = useQuery<Task>(`/tasks/${taskId}`);
-
-  const editTask = useMutate(`/tasks/${taskId}`, {
-    method: "PUT",
+  const createTask = useMutate("/tasks", {
+    method: "POST",
     onSuccess: () => router.push("/"),
   });
 
@@ -45,14 +37,8 @@ export function EditTask({ taskId }: EditTaskProps) {
     },
   });
 
-  useEffect(() => {
-    if (defaultValues) {
-      form.reset(defaultValues);
-    }
-  }, [defaultValues, form]);
-
   function onSubmit(values: z.infer<typeof taskSchema>) {
-    editTask.mutate(values);
+    createTask.mutate(values);
   }
 
   return (
@@ -87,9 +73,9 @@ export function EditTask({ taskId }: EditTaskProps) {
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={!form.formState.isDirty}>
-          Save
-          <Check className="size-4 stroke-4" />
+        <Button type="submit">
+          Add Task
+          <PlusCircle className="size-3.5 stroke-3" />
         </Button>
       </form>
     </Form>

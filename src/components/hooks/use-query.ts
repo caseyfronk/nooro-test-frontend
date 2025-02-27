@@ -1,6 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
 
+// This is a React hook for fetching data (GET requests)
+// from the server. It's designed to emulate the behavior
+// of Tanstack Query, only simpler. It accepts a generic type.
+
 export function useQuery<TData = unknown>(
   path: string,
   runOnMount: boolean = true,
@@ -16,7 +20,7 @@ export function useQuery<TData = unknown>(
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:8080" + path);
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + path);
       const json = await response.json();
       if (!response.ok) {
         // Alert in toast if response has a message

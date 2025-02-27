@@ -1,6 +1,11 @@
 import { useState, useCallback } from "react";
 import { toast } from "sonner";
 
+// This is a React hook for sending data (non GET request)
+// to the server. It's designed to emulate the behavior
+// of Tanstack Query, only simpler. You call the hook,
+// pass a URL and some options.
+
 type Method = "POST" | "PUT" | "DELETE";
 
 type Options = {
@@ -24,7 +29,7 @@ export function useMutate<TData = unknown, TBody = unknown>(
       setError(null);
 
       try {
-        const response = await fetch("http://localhost:8080" + path, {
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + path, {
           method: options.method,
           headers: {
             "Content-Type": "application/json",

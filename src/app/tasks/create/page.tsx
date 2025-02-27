@@ -1,4 +1,4 @@
-import { CreateTaskForm } from "@/components/tasks/create-task";
+import { CreateTaskForm } from "@/components/tasks/create-task-form";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
