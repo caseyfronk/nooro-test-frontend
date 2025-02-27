@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { toast } from "sonner";
 
 export function useQuery<TData = unknown>(
   path: string,
@@ -16,10 +17,15 @@ export function useQuery<TData = unknown>(
 
     try {
       const response = await fetch("http://localhost:8080" + path);
-      if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
-      }
       const json = await response.json();
+      if (!response.ok) {
+        // Alert in toast if response has a message
+        if (typeof json === "object" && json !== null && "message" in json) {
+          toast.error((json as { message: string }).message);
+        } else {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+      }
       setData(json);
     } catch (error) {
       console.error(error);
