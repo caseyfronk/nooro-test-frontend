@@ -7,6 +7,16 @@ export type Task = {
   updatedAt: Date;
 };
 
-export const taskColors = ["crimson", "seagreen", "slateblue"] as const;
+export const taskColors = [
+  "#FF3B30",
+  "#FF9500",
+  "#FFCC00",
+  "#34C759",
+  "#007AFF",
+  "#5856D6",
+  "#AF52DE",
+  "#FF2D55",
+  "#A2845E",
+] as const;
 
 export type TaskColor = (typeof taskColors)[number];

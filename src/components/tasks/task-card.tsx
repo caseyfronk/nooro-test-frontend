@@ -1,7 +1,6 @@
 "use client";
 
 import { Pencil, Trash2 } from "lucide-react";
-import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import { cn } from "@/lib/utils";
@@ -26,22 +25,15 @@ export function TaskCard({ task, afterChanges }: TaskCardProps) {
     method: "DELETE",
     onSuccess: () => afterChanges(),
   });
+
   return (
-    <Card
-      className="flex flex-row items-center gap-3 p-3"
-      style={{ border: `1px solid ${task.color}` }}
-    >
+    <Card className="flex flex-row items-center gap-3 p-3">
       <Checkbox
         className="rounded-full hover:cursor-pointer"
         checked={task.completed}
         onCheckedChange={() => editTask.mutate({ completed: !task.completed })}
       />
-      <div className="flex flex-1 flex-col gap-1">
-        {task.completed ? (
-          <Badge>Completed</Badge>
-        ) : (
-          <Badge variant="destructive">Incomplete</Badge>
-        )}
+      <div className="flex flex-1 flex-col items-start gap-1">
         <h2
           className={cn(
             "text-lg",
@@ -50,8 +42,13 @@ export function TaskCard({ task, afterChanges }: TaskCardProps) {
         >
           {task.title}
         </h2>
-        <div className="flex gap-3">
-          <p className="text-muted-foreground text-sm">
+
+        <div className="flex items-center gap-3">
+          <div
+            style={{ backgroundColor: task.color }}
+            className="size-4 rounded-full"
+          />
+          <p className="text-muted-foreground text-xs">
             Created{" "}
             {formatDistanceToNow(task.createdAt, {
               addSuffix: true,

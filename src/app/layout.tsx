@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Rocket } from "lucide-react";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +37,7 @@ export default function RootLayout({
           </nav>
         </header>
         <div className="mx-auto max-w-[736px]">{children}</div>
+        <Toaster position="bottom-center" richColors />
       </body>
     </html>
   );

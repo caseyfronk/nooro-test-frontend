@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { toast } from "sonner";
 
 type Method = "POST" | "PUT" | "DELETE";
 
@@ -36,6 +37,12 @@ export function useMutate<TData = unknown, TBody = unknown>(
         }
 
         const json = await response.json();
+
+        // Alert in toast if response has a message
+        if (typeof json === "object" && json !== null && "message" in json) {
+          toast.success((json as { message: string }).message);
+        }
+
         setData(json);
 
         if (options.onSuccess) {
