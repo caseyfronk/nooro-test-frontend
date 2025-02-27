@@ -13,7 +13,7 @@ export function ColorPicker({ value, onChange }: ColorPickerProps) {
         <div
           key={color}
           className={cn(
-            "size-10 rounded-full border-2 border-transparent hover:cursor-pointer",
+            "size-13 rounded-full border-2 border-transparent hover:cursor-pointer",
             value === color && "border-white",
           )}
           style={{ backgroundColor: color }}

@@ -27,17 +27,17 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <header className="bg-accent sticky top-0 shadow">
+        <header className="bg-accent">
           <nav className="mx-auto flex h-50 max-w-[736px] items-center justify-center gap-3 p-3">
             <div className="flex items-center gap-3 text-5xl font-bold">
               <Rocket className="size-8 -rotate-45 text-cyan-500" />
-              <span className="text-cyan-500">Todo</span>
-              <span className="text-indigo-500">App</span>
+              <span className="text-primary">Todo</span>
+              <span className="text-secondary">App</span>
             </div>
           </nav>
         </header>
         <div className="mx-auto max-w-[736px]">{children}</div>
-        <Toaster position="bottom-center" richColors />
+        <Toaster position="bottom-center" richColors duration={2000} />
       </body>
     </html>
   );

@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutate } from "../hooks/use-mutate";
-import { taskColors } from "@/lib/types";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,15 +15,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Check } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 import { ColorPicker } from "./color-picker";
 import { useRouter } from "next/navigation";
-
-const taskSchema = z.object({
-  title: z.string().min(5),
-  color: z.enum(taskColors),
-  completed: z.boolean(),
-});
+import { taskSchema } from "@/lib/validation";
 
 export function CreateTaskForm() {
   const router = useRouter();
@@ -60,7 +54,7 @@ export function CreateTaskForm() {
             <FormItem>
               <FormLabel>Title</FormLabel>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input placeholder="Ex. Brush your teeth" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -80,8 +74,8 @@ export function CreateTaskForm() {
           )}
         />
         <Button type="submit" disabled={!form.formState.isDirty}>
-          Create Task
-          <Check className="size-3.5 stroke-3" />
+          Add Task
+          <PlusCircle className="size-3.5 stroke-3" />
         </Button>
       </form>
     </Form>

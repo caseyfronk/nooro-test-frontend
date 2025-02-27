@@ -1,6 +1,6 @@
 "use client";
 
-import { Pencil, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import { cn } from "@/lib/utils";
@@ -16,7 +16,7 @@ type TaskCardProps = {
 };
 
 export function TaskCard({ task, afterChanges }: TaskCardProps) {
-  const editTask = useMutate(`/tasks/${task.id}`, {
+  const toggleCompleted = useMutate(`/tasks/${task.id}/toggle-completed`, {
     method: "PUT",
     onSuccess: () => afterChanges(),
   });
@@ -29,14 +29,20 @@ export function TaskCard({ task, afterChanges }: TaskCardProps) {
   return (
     <Card className="flex flex-row items-center gap-3 p-3">
       <Checkbox
-        className="rounded-full hover:cursor-pointer"
+        className="size-5 rounded-full hover:cursor-pointer"
         checked={task.completed}
-        onCheckedChange={() => editTask.mutate({ completed: !task.completed })}
+        onCheckedChange={() =>
+          toggleCompleted.mutate({ completed: !task.completed })
+        }
       />
-      <div className="flex flex-1 flex-col items-start gap-1">
+
+      <Link
+        href={`/tasks/${task.id}`}
+        className="flex flex-1 flex-col items-start gap-1 hover:cursor-pointer"
+      >
         <h2
           className={cn(
-            "text-lg",
+            "font-light",
             task.completed && "text-muted-foreground line-through",
           )}
         >
@@ -56,12 +62,8 @@ export function TaskCard({ task, afterChanges }: TaskCardProps) {
             })}
           </p>
         </div>
-      </div>
-      <Button variant="ghost" size="icon" asChild>
-        <Link href={`/tasks/${task.id}`}>
-          <Pencil />
-        </Link>
-      </Button>
+      </Link>
+
       <Button variant="ghost" size="icon" onClick={() => deleteTask.mutate()}>
         <Trash2 />
       </Button>

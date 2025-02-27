@@ -5,7 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutate } from "../hooks/use-mutate";
 import { useQuery } from "../hooks/use-query";
-import { Task, taskColors } from "@/lib/types";
+import { Task } from "@/lib/types";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,12 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Check } from "lucide-react";
 import { ColorPicker } from "./color-picker";
 import { useRouter } from "next/navigation";
-
-const taskSchema = z.object({
-  title: z.string().min(5),
-  color: z.enum(taskColors),
-  completed: z.boolean(),
-});
+import { taskSchema } from "@/lib/validation";
 
 type EditTaskProps = {
   taskId: string;
@@ -73,7 +68,7 @@ export function EditTask({ taskId }: EditTaskProps) {
             <FormItem>
               <FormLabel>Title</FormLabel>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input placeholder="Ex. Brush your teeth" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -94,7 +89,7 @@ export function EditTask({ taskId }: EditTaskProps) {
         />
         <Button type="submit" disabled={!form.formState.isDirty}>
           Save
-          <Check className="size-3.5 stroke-3" />
+          <Check className="size-4 stroke-4" />
         </Button>
       </form>
     </Form>

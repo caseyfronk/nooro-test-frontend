@@ -5,7 +5,7 @@ import { TaskList } from "@/components/tasks/task-list";
 
 export default async function Home() {
   return (
-    <main className="flex flex-col gap-3 p-3">
+    <main className="-mt-10 flex flex-col gap-3 p-3">
       <Button className="w-full" asChild>
         <Link href="/tasks/create">
           <span>Create Task</span>
